@@ -97,6 +97,16 @@
             </div>
             <textarea id="ai-prompt" placeholder="Ej. Calavera tradicional con enredaderas de rosas en tinta negra sólida, flash art, stencil..." rows="3"></textarea>
             
+            <div class="setting-row">
+              <label for="ai-style-preset">Estilo de Generación:</label>
+              <select id="ai-style-preset" style="font-size: 0.75rem; padding: 8px;">
+                <option value="stencil">Boceto / Stencil (Líneas Negras)</option>
+                <option value="color">Full Color (Neotradicional / Gótico)</option>
+                <option value="realistic">Realismo / Sombras</option>
+                <option value="free">Diseño Libre (Usa exactamente tu texto)</option>
+              </select>
+            </div>
+            
             <button class="btn-primary-action" id="btn-generate-ai">
               <span>Generar Diseño</span>
               <i class="fa-solid fa-wand-magic-sparkles"></i>

@@ -247,6 +247,17 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const stylePreset = document.getElementById('ai-style-preset')?.value || 'stencil';
+    
+    let finalPrompt = prompt;
+    if (stylePreset === 'stencil') {
+      finalPrompt = `tattoo stencil style, line art vector, black ink on clean white background, ${prompt}`;
+    } else if (stylePreset === 'color') {
+      finalPrompt = `bold line neotraditional tattoo design, vibrant full color, clean white background, ${prompt}`;
+    } else if (stylePreset === 'realistic') {
+      finalPrompt = `black and grey realistic tattoo artwork, detailed shading, clean white background, ${prompt}`;
+    } // Si es 'free', usa el prompt tal cual lo escribió el usuario
+
     // Mostrar overlay de carga
     loadingOverlay.style.display = 'flex';
     loadingMessage.textContent = 'Enviando prompt a Flux AI...';
@@ -261,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         body: JSON.stringify({
           model: 'black-forest-labs/FLUX.1-schnell',
-          prompt: `tattoo stencil style, line art vector, black ink on clean white background, ${prompt}`,
+          prompt: finalPrompt,
           width: 768,
           height: 768,
           steps: 4,
