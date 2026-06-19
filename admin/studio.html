@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Ink Lab - Creative Studio (Tattoo Editor)</title>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts for Typography Tool -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Great+Vibes&family=Montserrat:wght@300;600;900&family=Pirata+One&family=Playfair+Display:ital,wght@1,700&family=Uncial+Antiqua&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS stylesheet -->
+  <link rel="stylesheet" href="studio.css">
+</head>
+<body class="studio-dark-theme">
+
+  <!-- Custom Cursor Elements -->
+  <div class="cursor-dot" id="js-cursor"></div>
+  <div class="cursor-follower" id="js-cursor-follower"></div>
+
+  <!-- Studio Container -->
+  <div class="studio-app-wrapper">
+    
+    <!-- Top Navbar -->
+    <header class="studio-header">
+      <div class="header-logo-area">
+        <a href="../index.html" class="back-home-btn" title="Volver al Inicio">
+          <i class="fa-solid fa-chevron-left"></i>
+        </a>
+        <div class="logo">
+          <span class="logo-sub">THE INK LAB</span>
+          <span class="logo-main">CREATIVE STUDIO</span>
+        </div>
+      </div>
+      <div class="header-status">
+        <span class="status-indicator live"></span>
+        <span class="status-text">Diseño de Autor</span>
+      </div>
+    </header>
+
+    <!-- Main Editor Grid Layout -->
+    <main class="studio-main-grid">
+      
+      <!-- LEFT SIDEBAR: Tools & AI Portal -->
+      <aside class="studio-sidebar-left" aria-label="Panel de Herramientas">
+        
+        <!-- Tool Selection Section -->
+        <section class="tool-section">
+          <h3>Herramientas</h3>
+          <div class="tools-btn-grid">
+            <button class="tool-btn active" id="btn-select" title="Seleccionar/Mover objeto">
+              <i class="fa-solid fa-mouse-pointer"></i>
+              <span>Seleccionar</span>
+            </button>
+            <button class="tool-btn" id="btn-brush" title="Dibujar libremente">
+              <i class="fa-solid fa-paint-brush"></i>
+              <span>Pincel</span>
+            </button>
+            <button class="tool-btn" id="btn-add-text" title="Añadir texto">
+              <i class="fa-solid fa-font"></i>
+              <span>Texto</span>
+            </button>
+            <label class="tool-btn file-upload-label" title="Cargar imagen local">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <span>Cargar Imagen</span>
+              <input type="file" id="local-image-input" accept="image/*" style="display: none;">
+            </label>
+          </div>
+        </section>
+
+        <!-- Brush Settings Panel (Dynamic display) -->
+        <section class="tool-settings-panel" id="brush-settings" style="display: none;">
+          <h4>Ajustes de Pincel</h4>
+          <div class="setting-row">
+            <label for="brush-size">Grosor: <span id="brush-size-val">5px</span></label>
+            <input type="range" id="brush-size" min="1" max="50" value="5">
+          </div>
+          <div class="setting-row">
+            <label>Color:</label>
+            <div class="color-picker-grid">
+              <button class="color-swatch active" data-color="#000000" style="background-color: #000000;" title="Negro Sólido"></button>
+              <button class="color-swatch" data-color="#FF0000" style="background-color: #FF0000;" title="Rojo Boceto"></button>
+              <button class="color-swatch" data-color="#00D0D2" style="background-color: #00D0D2;" title="Cian Eléctrico"></button>
+            </div>
+          </div>
+        </section>
+
+        <!-- AI Generator Section -->
+        <section class="tool-section ai-portal-section">
+          <h3>Portal de Generación IA</h3>
+          <div class="ai-box">
+            <p class="ai-subtitle">Flux Model (Together.ai)</p>
+            <div class="setting-row">
+              <input type="password" id="ai-api-key" placeholder="Pegar Together.ai API Key" style="background-color: #0d0d10; border: 1px solid var(--panel-border); color: var(--text-primary); padding: 8px; border-radius: 6px; font-size: 0.75rem; width: 100%;">
+            </div>
+            <textarea id="ai-prompt" placeholder="Ej. Calavera tradicional con enredaderas de rosas en tinta negra sólida, flash art, stencil..." rows="3"></textarea>
+            
+            <button class="btn-primary-action" id="btn-generate-ai">
+              <span>Generar Diseño</span>
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </button>
+
+            <!-- AI Output post-processing options -->
+            <div class="ai-options-group">
+              <label class="checkbox-container">
+                <input type="checkbox" id="ai-remove-bg" checked>
+                <span class="checkmark"></span>
+                Remover Fondo Blanco (Autostencil)
+              </label>
+              
+              <div class="setting-row" id="bg-threshold-row">
+                <label for="bg-threshold">Tolerancia de Blanco: <span id="bg-threshold-val">20%</span></label>
+                <input type="range" id="bg-threshold" min="5" max="80" value="20">
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </aside>
+
+      <!-- CENTER VIEWPORT: Canvas Frame -->
+      <section class="studio-viewport-center">
+        <div class="canvas-outer-wrapper">
+          <div class="canvas-inner-container">
+            <!-- Dynamic Fabric.js canvas -->
+            <canvas id="tattoo-canvas" width="800" height="800"></canvas>
+          </div>
+          <div class="viewport-info-bar">
+            <span>Canvas: 800 x 800 px</span>
+            <span>Estudio de Autor v1.0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT SIDEBAR: Layer Settings & Export Buttons -->
+      <aside class="studio-sidebar-right" aria-label="Propiedades de Capas">
+        
+        <!-- Text Styling Properties (Contextual) -->
+        <section class="tool-section text-properties-panel" id="text-properties" style="display: none;">
+          <h3>Estilo de Texto</h3>
+          <div class="setting-row">
+            <label for="font-family-select">Tipografía:</label>
+            <select id="font-family-select">
+              <option value="Pirata One" style="font-family: 'Pirata One', cursive;">Gótica Antigua (Pirata)</option>
+              <option value="Uncial Antiqua" style="font-family: 'Uncial Antiqua', serif;">Medieval (Uncial)</option>
+              <option value="Great Vibes" style="font-family: 'Great Vibes', cursive;">Caligráfica Cursiva</option>
+              <option value="Cinzel" style="font-family: 'Cinzel', serif;">Serif Romana (Cinzel)</option>
+              <option value="Playfair Display" style="font-family: 'Playfair Display', serif; font-style: italic;">Itálica Clásica</option>
+              <option value="Montserrat" style="font-family: 'Montserrat', sans-serif;">Moderna Sans-Serif</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- Selected Layer Controller -->
+        <section class="tool-section object-properties-panel">
+          <h3>Propiedades de Capa</h3>
+          
+          <div class="layer-control-states" id="layer-active-controls" style="display: none;">
+            <div class="setting-row">
+              <label for="layer-opacity">Opacidad: <span id="layer-opacity-val">100%</span></label>
+              <input type="range" id="layer-opacity" min="0" max="100" value="100">
+            </div>
+
+            <div class="sorting-btn-group">
+              <button class="action-small-btn" id="btn-bring-front" title="Traer al frente">
+                <i class="fa-solid fa-angles-up"></i>
+                <span>Al Frente</span>
+              </button>
+              <button class="action-small-btn" id="btn-send-back" title="Enviar al fondo">
+                <i class="fa-solid fa-angles-down"></i>
+                <span>Al Fondo</span>
+              </button>
+            </div>
+
+            <button class="btn-danger-action" id="btn-delete-layer">
+              <i class="fa-solid fa-trash-can"></i>
+              <span>Eliminar Capa</span>
+            </button>
+          </div>
+
+          <div class="layer-placeholder-message" id="layer-placeholder">
+            <p>Selecciona un elemento en el lienzo para ver y editar sus propiedades.</p>
+          </div>
+        </section>
+
+        <!-- Actions Panel -->
+        <section class="tool-section actions-panel">
+          <h3>Acciones del Proyecto</h3>
+          
+          <div class="actions-buttons-stack">
+            <button class="btn-primary-action" id="btn-export-stencil">
+              <i class="fa-solid fa-download"></i>
+              <span>Descargar Stencil PNG</span>
+            </button>
+            
+            <button class="btn-secondary-action" id="btn-publish-portfolio">
+              <i class="fa-solid fa-circle-nodes"></i>
+              <span>Publicar en Portfolio</span>
+            </button>
+            
+            <div class="draft-actions">
+              <button class="draft-btn" id="btn-save-draft" title="Guardar borrador en el navegador"><i class="fa-solid fa-floppy-disk"></i> Guardar Borrador</button>
+              <button class="draft-btn" id="btn-load-draft" title="Cargar borrador guardado"><i class="fa-solid fa-folder-open"></i> Cargar Borrador</button>
+            </div>
+          </div>
+        </section>
+
+      </aside>
+
+    </main>
+
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="js-studio-loading" style="display: none;">
+    <div class="loading-spinner-wrapper">
+      <div class="cyber-spinner"></div>
+      <p id="loading-message">Conectando con Flux AI...</p>
+    </div>
+  </div>
+
+  <!-- Fabric.js Dynamic Canvas Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+  
+  <!-- Supabase Client for Publishing Integration -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <!-- Canvas logic file -->
+  <script src="studio.js"></script>
+</body>
+</html>
