@@ -183,14 +183,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadingOverlay = document.getElementById('js-studio-loading');
   const loadingMessage = document.getElementById('loading-message');
 
-  // Recuperar clave API guardada
-  if (localStorage.getItem('together_ai_api_key')) {
-    aiApiKeyInput.value = localStorage.getItem('together_ai_api_key');
+  // Configurar clave API por defecto hardcodeada
+  const defaultApiKey = 'tgp_v1_OMdKzyfFBZwh_haCXGp9RRsmTi_ZkEKUmqiyn_-bbTs';
+  if (!localStorage.getItem('together_ai_api_key')) {
+    localStorage.setItem('together_ai_api_key', defaultApiKey);
   }
+  aiApiKeyInput.value = localStorage.getItem('together_ai_api_key');
 
   // Guardar clave API en cambio
   aiApiKeyInput.addEventListener('change', (e) => {
-    localStorage.setItem('together_ai_api_key', e.target.value.trim());
+    const val = e.target.value.trim();
+    localStorage.setItem('together_ai_api_key', val || defaultApiKey);
   });
 
   // Actualizar indicador del Threshold
