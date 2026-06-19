@@ -247,21 +247,36 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const stylePreset = document.getElementById('ai-style-preset')?.value || 'stencil';
-    
-    let finalPrompt = prompt;
-    if (stylePreset === 'stencil') {
-      finalPrompt = `tattoo stencil style, line art vector, black ink on clean white background, ${prompt}`;
-    } else if (stylePreset === 'color') {
-      finalPrompt = `bold line neotraditional tattoo design, vibrant full color, clean white background, ${prompt}`;
-    } else if (stylePreset === 'realistic') {
-      finalPrompt = `black and grey realistic tattoo artwork, detailed shading, clean white background, ${prompt}`;
-    } // Si es 'free', usa el prompt tal cual lo escribió el usuario
-
     // Mostrar overlay de carga
     loadingOverlay.style.display = 'flex';
-    loadingMessage.textContent = 'Enviando prompt a Flux AI...';
+    loadingMessage.textContent = 'Traduciendo descripción al inglés...';
     btnGenerateAi.disabled = true;
+
+    let translatedPrompt = prompt;
+    try {
+      const translateRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(prompt)}&langpair=es|en`);
+      if (translateRes.ok) {
+        const translateData = await translateRes.json();
+        translatedPrompt = translateData.responseData?.translatedText || prompt;
+        console.log("Original:", prompt);
+        console.log("Traducido:", translatedPrompt);
+      }
+    } catch (err) {
+      console.warn("Fallo en la traducción automática, usando el texto original:", err);
+    }
+
+    loadingMessage.textContent = 'Generando diseño con Flux AI...';
+
+    const stylePreset = document.getElementById('ai-style-preset')?.value || 'stencil';
+    
+    let finalPrompt = translatedPrompt;
+    if (stylePreset === 'stencil') {
+      finalPrompt = `tattoo stencil style, line art vector, black ink on clean white background, ${translatedPrompt}`;
+    } else if (stylePreset === 'color') {
+      finalPrompt = `bold line neotraditional tattoo design, vibrant full color, clean white background, ${translatedPrompt}`;
+    } else if (stylePreset === 'realistic') {
+      finalPrompt = `black and grey realistic tattoo artwork, detailed shading, clean white background, ${translatedPrompt}`;
+    } // Si es 'free', usa el prompt tal cual lo escribió el usuario
 
     try {
       const response = await fetch('https://api.together.xyz/v1/images/generations', {
