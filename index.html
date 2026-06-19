@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TATTOO MAGINK | Estudio Privado de Tatuajes de Autor</title>
+  <meta name="description" content="Tattoo Magink es un estudio privado y exclusivo de tatuajes de autor en Buenos Aires. Atención personalizada y con cita previa por el artista de renombre internacional.">
+  
+  <!-- Google Fonts para tipografías premium -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome para iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Pantalla de Introducción (Graffiti Intro) -->
+  <div class="intro-screen" id="js-intro-screen">
+    <div class="intro-logo-wrapper">
+      <img src="images/logo_graffiti.png" alt="Tattoo Magink Logo Graffiti" class="intro-logo" id="js-intro-logo">
+      <div class="spray-nozzle" id="js-spray-nozzle"></div>
+    </div>
+  </div>
+
+  <!-- Líneas de Cuadrícula Atmosférica Decorativa -->
+  <div class="grid-overlay" aria-hidden="true">
+    <div class="grid-line"></div>
+    <div class="grid-line"></div>
+    <div class="grid-line"></div>
+    <div class="grid-line"></div>
+  </div>
+
+  <!-- Cursor Personalizado -->
+  <div class="custom-cursor" id="js-cursor"></div>
+  <div class="custom-cursor-follower" id="js-cursor-follower"></div>
+
+  <!-- Encabezado de Navegación -->
+  <header class="main-header" id="js-header">
+    <div class="header-container">
+      <a href="#" class="logo" id="logo-link">
+        <span class="logo-sub">TATTOO</span>
+        <span class="logo-main">MAGINK</span>
+      </a>
+      
+      <nav class="nav-menu" id="js-nav-menu">
+        <a href="#portfolio" class="nav-link">Portafolio</a>
+        <a href="#artista" class="nav-link">El Artista</a>
+        <a href="#reserva" class="nav-link">Reserva Privada</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="mobile-menu-toggle" id="js-menu-toggle" aria-label="Abrir menú">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sección Hero -->
+  <section class="hero-section" id="hero">
+    <div class="hero-bg-image-container">
+      <img class="hero-bg-image" src="images/hero_bg.png" alt="Proceso de tatuaje artístico en estudio privado de fondo">
+      <div class="hero-overlay"></div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-subtitle">ESTUDIO PRIVADO | SKATE & GOTHIC VIBE</div>
+      <h1 class="hero-title">Tattoo Magink<br><span class="accent-text">Arte en tu Piel</span></h1>
+      <p class="hero-description">
+        Un refugio clandestino de arte corporal. Fusión de tipografía gótica, ilustración oscura y cultura urbana/skate. Sesiones privadas individuales bajo reserva.
+      </p>
+      <div class="hero-actions-container">
+        <a href="#reserva" class="btn-primary" id="hero-cta">
+          <span>Solicitar Turno Privado</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Deslizar</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Sección Portafolio Interactivo -->
+  <section class="portfolio-section" id="portfolio">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-subtitle">GALERÍA DE ARTE</span>
+        <h2 class="section-title">Diseños de Autor</h2>
+        <div class="section-decor"></div>
+      </div>
+
+      <!-- Barra de Filtros -->
+      <div class="filter-bar-container">
+        <div class="filter-bar" id="js-filter-bar" role="tablist">
+          <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">Todos</button>
+          <button class="filter-btn" data-filter="blackwork" role="tab" aria-selected="false">Blackwork</button>
+          <button class="filter-btn" data-filter="tradicional" role="tab" aria-selected="false">Tradicional</button>
+          <button class="filter-btn" data-filter="fineline" role="tab" aria-selected="false">Fine Line</button>
+          <button class="filter-btn" data-filter="color" role="tab" aria-selected="false">Color</button>
+        </div>
+      </div>
+
+      <!-- Cuadrícula Masonry de Portafolio -->
+      <div class="portfolio-grid" id="js-portfolio-grid">
+        
+        <!-- Tarjeta 1: Blackwork -->
+        <div class="portfolio-card" data-category="blackwork" data-id="1">
+          <div class="card-image-wrapper">
+            <img src="images/tattoo_blackwork.png" alt="Diseño de tatuaje geométrico mandala en blackwork" loading="lazy">
+            <div class="card-overlay">
+              <div class="card-meta">
+                <span class="card-artist">Tattoo Magink</span>
+                <h3 class="card-title">Calavera Skate Deck</h3>
+                <span class="card-style-tag">Blackwork</span>
+              </div>
+              <div class="card-action-icon">
+                <i class="fa-solid fa-plus"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta 3: Tradicional -->
+        <div class="portfolio-card" data-category="tradicional" data-id="3">
+          <div class="card-image-wrapper">
+            <img src="images/tattoo_traditional.png" alt="Tatuaje tradicional americano de daga y rosa" loading="lazy">
+            <div class="card-overlay">
+              <div class="card-meta">
+                <span class="card-artist">Tattoo Magink</span>
+                <h3 class="card-title">Daga & Rose Skate</h3>
+                <span class="card-style-tag">Tradicional</span>
+              </div>
+              <div class="card-action-icon">
+                <i class="fa-solid fa-plus"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta 4: Fine Line -->
+        <div class="portfolio-card" data-category="fineline" data-id="4">
+          <div class="card-image-wrapper">
+            <img src="images/tattoo_fineline.png" alt="Tatuaje delicado de flores silvestres y constelaciones" loading="lazy">
+            <div class="card-overlay">
+              <div class="card-meta">
+                <span class="card-artist">Tattoo Magink</span>
+                <h3 class="card-title">Tipografía Fine Gothic</h3>
+                <span class="card-style-tag">Fine Line</span>
+              </div>
+              <div class="card-action-icon">
+                <i class="fa-solid fa-plus"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta 5: Color -->
+        <div class="portfolio-card" data-category="color" data-id="5">
+          <div class="card-image-wrapper">
+            <img src="images/tattoo_color.png" alt="Tatuaje de dragón oriental con colores vivos e intensos" loading="lazy">
+            <div class="card-overlay">
+              <div class="card-meta">
+                <span class="card-artist">Tattoo Magink</span>
+                <h3 class="card-title">Cripta a Color</h3>
+                <span class="card-style-tag">Color / NeoTrad</span>
+              </div>
+              <div class="card-action-icon">
+                <i class="fa-solid fa-plus"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta 6: Fine Line/Micro -->
+        <div class="portfolio-card" data-category="fineline" data-id="6">
+          <div class="card-image-wrapper">
+            <img src="images/tattoo_micro.png" alt="Tatuaje minimalista geométrico en el antebrazo" loading="lazy">
+            <div class="card-overlay">
+              <div class="card-meta">
+                <span class="card-artist">Tattoo Magink</span>
+                <h3 class="card-title">Skate Skull Minimal</h3>
+                <span class="card-style-tag">Fine Line / Micro</span>
+              </div>
+              <div class="card-action-icon">
+                <i class="fa-solid fa-plus"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección El Artista (Estudio de un solo artista) -->
+  <section class="artists-section" id="artista">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-subtitle">EL CREADOR DETRÁS DE LA AGUJA</span>
+        <h2 class="section-title">El Artista</h2>
+        <div class="section-decor"></div>
+      </div>
+
+      <div class="single-artist-container">
+        <div class="single-artist-card">
+          <div class="artist-portrait-wrapper">
+            <img src="images/artist_marcus.png" alt="Retrato artístico en blanco y negro de Marcus, el tatuador y creador de Tattoo Magink" loading="lazy">
+            <div class="artist-overlay"></div>
+          </div>
+          
+          <div class="single-artist-info">
+            <h3 class="artist-main-name">Marcus Magink</h3>
+            <span class="artist-main-specialty">Blackwork, Ilustración Gótica & Skate Deck Art</span>
+            <p class="artist-main-bio">
+              Criado en la subcultura skate de los 90, con influencia del punk rock y el arte gótico, Marcus fusiona las tipografías medievales y la ilustración oscura para crear piezas que escapan del tatuaje comercial común. 
+            </p>
+            <p class="artist-main-bio">
+              Tattoo Magink es su sanctum privado: un taller a puerta cerrada donde la música pesada, las tablas de skate y la tinta espesa se unen para crear piezas de autor totalmente personalizadas sobre tu piel.
+            </p>
+            <div class="artist-values">
+              <div class="value-item">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Estudio Privado Clandestino</span>
+              </div>
+              <div class="value-item">
+                <i class="fa-solid fa-scroll"></i>
+                <span>Estilo Skate & Gothic Custom</span>
+              </div>
+              <div class="value-item">
+                <i class="fa-solid fa-award"></i>
+                <span>Tinta Negra de Alta Densidad</span>
+              </div>
+            </div>
+            <a href="#reserva" class="btn-primary">
+              <span>Reservar una Sesión Exclusiva</span>
+              <i class="fa-solid fa-calendar-check"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Embudo de Reserva -->
+  <section class="booking-section" id="reserva">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-subtitle">SOLICITA TU CITA EXCLUSIVA</span>
+        <h2 class="section-title">Embudo de Reserva Privada</h2>
+        <div class="section-decor"></div>
+      </div>
+
+      <div class="booking-wrapper">
+        <div class="booking-progress-container">
+          <div class="booking-progress-bar" id="js-progress-bar" style="width: 25%;"></div>
+          <div class="booking-progress-steps">
+            <div class="progress-step active" data-step="1"><span class="step-num">1</span><span class="step-text">Estilo</span></div>
+            <div class="progress-step" data-step="2"><span class="step-num">2</span><span class="step-text">Zona</span></div>
+            <div class="progress-step" data-step="3"><span class="step-num">3</span><span class="step-text">Detalles</span></div>
+            <div class="progress-step" data-step="4"><span class="step-num">4</span><span class="step-text">Fecha</span></div>
+          </div>
+        </div>
+
+        <form id="js-booking-form" class="booking-form" novalidate>
+          
+          <!-- PASO 1: Selección de Estilo -->
+          <div class="booking-step-pane active" data-step="1" id="step-style-pane">
+            <h3 class="step-title">¿Qué estilo de tatuaje tienes en mente?</h3>
+            <p class="step-desc">Elige la categoría del diseño que deseas desarrollar con el artista.</p>
+            
+            <div class="style-select-grid">
+              <label class="style-option-card">
+                <input type="radio" name="booking_style" value="Blackwork" required>
+                <div class="style-option-content">
+                  <div class="style-icon"><i class="fa-solid fa-fill-drip"></i></div>
+                  <span class="style-name">Blackwork</span>
+                  <span class="style-card-desc">Calaveras detalladas, tipografía gótica y sombras densas.</span>
+                </div>
+              </label>
+              
+              <label class="style-option-card">
+                <input type="radio" name="booking_style" value="Tradicional">
+                <div class="style-option-content">
+                  <div class="style-icon"><i class="fa-solid fa-anchor"></i></div>
+                  <span class="style-name">Tradicional</span>
+                  <span class="style-card-desc">Diseños clásicos neo-tradicionales con el carácter crudo del street art.</span>
+                </div>
+              </label>
+
+              <label class="style-option-card">
+                <input type="radio" name="booking_style" value="Fine Line">
+                <div class="style-option-content">
+                  <div class="style-icon"><i class="fa-solid fa-pen-nib"></i></div>
+                  <span class="style-name">Fine Line</span>
+                  <span class="style-card-desc">Runic/Fine-Gothic line, letras delicadas y simbología oscura.</span>
+                </div>
+              </label>
+
+              <label class="style-option-card">
+                <input type="radio" name="booking_style" value="Color">
+                <div class="style-option-content">
+                  <div class="style-icon"><i class="fa-solid fa-palette"></i></div>
+                  <span class="style-name">Color / Neotradicional</span>
+                  <span class="style-card-desc">Monstruos, street-art y paletas de colores neón y violetas saturados.</span>
+                </div>
+              </label>
+            </div>
+            
+            <div class="step-error-message" id="error-step-1">Por favor, selecciona un estilo para continuar.</div>
+          </div>
+
+          <!-- PASO 2: Zona del Cuerpo y Tamaño -->
+          <div class="booking-step-pane" data-step="2" id="step-placement-pane">
+            <h3 class="step-title">Zona de colocación y dimensiones</h3>
+            <p class="step-desc">Indica en qué lugar del cuerpo irá el diseño y su tamaño aproximado.</p>
+            
+            <div class="placement-grid">
+              <div class="body-zones-container">
+                <h4 class="form-sublabel">Selecciona la Zona:</h4>
+                <div class="body-zones-list">
+                  <label class="zone-pill">
+                    <input type="radio" name="body_placement" value="Brazo" checked>
+                    <span>Brazo / Antebrazo</span>
+                  </label>
+                  <label class="zone-pill">
+                    <input type="radio" name="body_placement" value="Pierna">
+                    <span>Pierna / Muslo</span>
+                  </label>
+                  <label class="zone-pill">
+                    <input type="radio" name="body_placement" value="Espalda">
+                    <span>Espalda</span>
+                  </label>
+                  <label class="zone-pill">
+                    <input type="radio" name="body_placement" value="Pecho">
+                    <span>Pecho / Costillas</span>
+                  </label>
+                  <label class="zone-pill">
+                    <input type="radio" name="body_placement" value="Hombro">
+                    <span>Hombro / Clavícula</span>
+                  </label>
+                  <label class="zone-pill">
+                    <input type="radio" name="body_placement" value="Cuello/Mano">
+                    <span>Cuello / Mano / Cabeza</span>
+                  </label>
+                  <label class="zone-pill">
+                    <input type="radio" name="body_placement" value="Otro">
+                    <span>Otro</span>
+                  </label>
+                </div>
+              </div>
+              
+              <div class="dimensions-container">
+                <h4 class="form-sublabel">Tamaño Estimado (en cm):</h4>
+                <div class="range-slider-wrapper">
+                  <input type="range" id="js-dimension-slider" name="tattoo_dimension" min="3" max="40" value="15">
+                  <div class="range-values">
+                    <span>Min: 3cm</span>
+                    <span class="range-current-value" id="js-slider-value">15 cm</span>
+                    <span>Max: 40cm+</span>
+                  </div>
+                </div>
+                
+                <div class="range-illustration" id="js-size-box">
+                  <div class="size-box-inner">Tatuaje</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PASO 3: Descripción e Imágenes de Referencia -->
+          <div class="booking-step-pane" data-step="3" id="step-details-pane">
+            <h3 class="step-title">Descripción y Referencias</h3>
+            <p class="step-desc">Cuéntanos sobre tu idea y sube imágenes de referencia (bocetos, ideas de tatuajes, etc.).</p>
+            
+            <div class="details-form-grid">
+              <div class="textarea-wrapper">
+                <label for="booking_description" class="floating-label-container">
+                  <textarea id="booking_description" name="booking_description" placeholder="Describe brevemente tu idea (historia, elementos clave, detalles de personalización)..." required></textarea>
+                </label>
+              </div>
+              
+              <div class="uploader-wrapper">
+                <div class="drag-drop-area" id="js-drag-drop">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                  <span>Arrastra imágenes aquí o haz clic para subir</span>
+                  <span class="upload-limit">Formatos JPG, PNG hasta 10MB</span>
+                  <input type="file" id="js-file-input" name="reference_images" multiple accept="image/*" class="file-input-hidden">
+                </div>
+                <div class="file-list-preview" id="js-file-preview">
+                  <!-- Archivos seleccionados se renderizan aquí dinámicamente -->
+                </div>
+              </div>
+            </div>
+            
+            <div class="step-error-message" id="error-step-3">Por favor, escribe una descripción de tu idea.</div>
+          </div>
+
+          <!-- PASO 4: Contacto y Calendario -->
+          <div class="booking-step-pane" data-step="4" id="step-calendar-pane">
+            <h3 class="step-title">Fecha, Hora y Contacto</h3>
+            <p class="step-desc">Selecciona tu disponibilidad estimada en el calendario e ingresa tus datos.</p>
+            
+            <div class="calendar-contact-grid">
+              <!-- Calendario Custom Interactivo -->
+              <div class="calendar-container">
+                <div class="calendar-header">
+                  <button type="button" class="calendar-prev-btn" id="js-cal-prev" aria-label="Mes anterior"><i class="fa-solid fa-chevron-left"></i></button>
+                  <span class="calendar-month-year" id="js-cal-month">Junio 2026</span>
+                  <button type="button" class="calendar-next-btn" id="js-cal-next" aria-label="Mes siguiente"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <div class="calendar-weekdays">
+                  <span>Dom</span><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span>
+                </div>
+                <div class="calendar-days-grid" id="js-cal-days">
+                  <!-- Días renderizados mediante JS -->
+                </div>
+                <div class="time-slots-container">
+                  <h4 class="form-sublabel">Horarios Disponibles para Consulta:</h4>
+                  <div class="time-slots" id="js-time-slots">
+                    <label class="slot-radio">
+                      <input type="radio" name="booking_time" value="10:00" required>
+                      <span>10:00 AM</span>
+                    </label>
+                    <label class="slot-radio">
+                      <input type="radio" name="booking_time" value="13:30">
+                      <span>01:30 PM</span>
+                    </label>
+                    <label class="slot-radio">
+                      <input type="radio" name="booking_time" value="16:00">
+                      <span>04:00 PM</span>
+                    </label>
+                    <label class="slot-radio">
+                      <input type="radio" name="booking_time" value="18:30">
+                      <span>06:30 PM</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Campos de Contacto -->
+              <div class="contact-fields-container">
+                <h4 class="form-sublabel">Tus Datos de Contacto:</h4>
+                <div class="contact-input-group">
+                  <div class="form-field">
+                    <input type="text" id="contact_name" name="contact_name" placeholder=" " required autocomplete="name">
+                    <label for="contact_name">Nombre Completo</label>
+                  </div>
+                  <div class="form-field">
+                    <input type="email" id="contact_email" name="contact_email" placeholder=" " required autocomplete="email">
+                    <label for="contact_email">Correo Electrónico</label>
+                  </div>
+                  <div class="form-field">
+                    <input type="tel" id="contact_phone" name="contact_phone" placeholder=" " required autocomplete="tel">
+                    <label for="contact_phone">Teléfono / WhatsApp</label>
+                  </div>
+                </div>
+
+                <div class="booking-summary-preview">
+                  <h5>Resumen de tu Consulta:</h5>
+                  <div class="summary-details">
+                    <div><strong>Estilo:</strong> <span id="summary-style">-</span></div>
+                    <div><strong>Zona/Medida:</strong> <span id="summary-size">-</span></div>
+                    <div><strong>Artista:</strong> <span>Marcus Magink</span></div>
+                    <div><strong>Fecha:</strong> <span id="summary-date">-</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="step-error-message" id="error-step-4">Por favor, completa tus datos y selecciona la fecha y hora.</div>
+          </div>
+
+          <!-- Navegación del Wizard -->
+          <div class="booking-wizard-actions">
+            <button type="button" class="btn-wizard btn-prev" id="js-wizard-prev" disabled>
+              <i class="fa-solid fa-arrow-left"></i>
+              <span>Anterior</span>
+            </button>
+            <button type="button" class="btn-wizard btn-next" id="js-wizard-next">
+              <span>Siguiente</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <button type="submit" class="btn-wizard btn-submit" id="js-wizard-submit" style="display: none;">
+              <span>Confirmar Cita Privada</span>
+              <i class="fa-solid fa-circle-check"></i>
+            </button>
+          </div>
+
+        </form>
+
+        <!-- Pantalla de Éxito de Reserva -->
+        <div class="booking-success-screen" id="js-booking-success">
+          <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+          <h3 class="success-title">¡Turno Solicitado Correctamente!</h3>
+          <p class="success-desc">
+            Hemos registrado tu solicitud de sesión en nuestro estudio privado. Marcus revisará tu idea de diseño personalmente y nos pondremos en contacto contigo para los detalles de la sesión.
+          </p>
+          <div class="success-summary-box">
+            <p><strong>Código de Turno:</strong> <span id="success-code">MGI-5829</span></p>
+            <p><strong>Tatuador:</strong> <span>Marcus Magink</span></p>
+            <p><strong>Fecha y Hora de Consulta:</strong> <span id="success-datetime">-</span></p>
+          </div>
+          <button class="btn-primary" id="js-reset-booking-btn">Solicitar otro Turno</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer" id="contacto">
+    <div class="footer-container">
+      
+      <div class="footer-top">
+        <a href="#" class="logo footer-logo">
+          <span class="logo-sub">TATTOO</span>
+          <span class="logo-main">MAGINK</span>
+        </a>
+        <p class="footer-tagline">Estudio de Autor. Absoluta Privacidad. Exclusividad.</p>
+      </div>
+      
+      <div class="footer-middle">
+        <div class="footer-col col-info">
+          <h4>El Estudio</h4>
+          <p class="footer-address"><i class="fa-solid fa-location-dot"></i> Estudio Privado en Palermo, CABA, Argentina</p>
+          <p class="footer-phone"><i class="fa-solid fa-phone"></i> +54 11 9876-5432</p>
+          <p class="footer-email"><i class="fa-solid fa-envelope"></i> sesiones@tattoomagink.com</p>
+        </div>
+        
+        <div class="footer-col col-hours">
+          <h4>Atención Privada</h4>
+          <p>Lunes a Sábado: 11:00 AM – 8:00 PM</p>
+          <p>Únicamente mediante reserva previa confirmada.</p>
+        </div>
+
+        <div class="footer-col col-social">
+          <h4>Síguenos</h4>
+          <div class="footer-social-links">
+            <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://pinterest.com" target="_blank" rel="noopener" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 TATTOO MAGINK. Todos los derechos reservados. Desarrollado con excelencia.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Lightbox de Galería (Modal) -->
+  <div class="lightbox-modal" id="js-lightbox" aria-hidden="true" role="dialog">
+    <button class="lightbox-close" id="js-lightbox-close" aria-label="Cerrar modal">&times;</button>
+    
+    <div class="lightbox-content-wrapper">
+      <div class="lightbox-image-container">
+        <img src="" alt="Detalle del tatuaje" id="js-lightbox-img">
+      </div>
+      
+      <div class="lightbox-info-container">
+        <span class="lightbox-artist" id="js-lightbox-artist">Tattoo Magink</span>
+        <h4 class="lightbox-title" id="js-lightbox-title">Sagrada Geometría</h4>
+        <div class="lightbox-tags">
+          <span class="lightbox-tag" id="js-lightbox-tag">Blackwork</span>
+        </div>
+        <p class="lightbox-desc">
+          Esta pieza artística representa la fusión de geometría sagrada y contrastes negros puros. Cada línea está ejecutada con máxima precisión quirúrgica para garantizar un acabado impecable sobre la piel.
+        </p>
+        
+        <button class="btn-primary lightbox-cta" id="js-lightbox-booking-btn">
+          <span>Me interesa este estilo</span>
+          <i class="fa-solid fa-calendar-check"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript del Sitio -->
+  <script src="app.js"></script>
+</body>
+</html>
