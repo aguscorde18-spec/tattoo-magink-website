@@ -5,6 +5,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   
   // ==========================================================================
+  // CONFIGURACIÓN DE SUPABASE
+  // ==========================================================================
+  const supabaseUrl = 'https://jfiysjwtsfqlaodxrtvf.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmaXlzand0c2ZxbGFvZHhydHZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4MzcyODIsImV4cCI6MjA5NzQxMzI4Mn0.qSrCd1lEogq9g_KMdJxbD6rkY8z0uLMDk8DKuS4-eco';
+  const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+  // ==========================================================================
   // 0. PANTALLA DE INTRODUCCIÓN (GRAFFITI INTRO)
   // ==========================================================================
   const introScreen = document.getElementById('js-intro-screen');
@@ -501,21 +508,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Envío final del Formulario
   if (bookingForm) {
-    bookingForm.addEventListener('submit', (e) => {
+    bookingForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
       if (!validateStep(4)) return;
       
-      const time = document.querySelector('input[name="booking_time"]:checked').value;
+      const submitBtnText = submitBtn.querySelector('span');
+      const originalText = submitBtnText ? submitBtnText.textContent : 'Confirmar Reserva';
       
-      bookingForm.style.display = 'none';
-      bookingSuccess.classList.add('active');
+      // Mostrar estado de carga
+      if (submitBtnText) submitBtnText.textContent = 'Procesando...';
+      submitBtn.disabled = true;
+      
+      const time = document.querySelector('input[name="booking_time"]:checked').value;
+      const style = document.querySelector('input[name="booking_style"]:checked')?.value || "";
+      const placement = document.querySelector('input[name="body_placement"]:checked')?.value || "";
+      const size = parseInt(dimensionSlider?.value || "15", 10);
+      const description = document.getElementById('booking_description').value.trim();
+      const name = document.getElementById('contact_name').value.trim();
+      const email = document.getElementById('contact_email').value.trim();
+      const phone = document.getElementById('contact_phone').value.trim();
       
       const code = 'MGI-' + Math.floor(1000 + Math.random() * 9000);
-      document.getElementById('success-code').textContent = code;
       
-      const [y, m, d] = selectedDateString.split('-');
-      document.getElementById('success-datetime').textContent = `${d}/${m}/${y} a las ${time} hs`;
+      try {
+        const { error } = await supabaseClient
+          .from('reservas')
+          .insert([
+            {
+              code: code,
+              style: style,
+              placement: placement,
+              size: size,
+              description: description,
+              name: name,
+              email: email,
+              phone: phone,
+              date: selectedDateString,
+              time: time
+            }
+          ]);
+          
+        if (error) {
+          console.error("Error guardando en Supabase:", error);
+          alert("No se pudo registrar la reserva en la base de datos. Por favor, revisa la consola o la configuración de RLS de tu tabla.");
+          
+          if (submitBtnText) submitBtnText.textContent = originalText;
+          submitBtn.disabled = false;
+          return;
+        }
+        
+        // Mostrar pantalla de éxito si la base de datos respondió OK
+        bookingForm.style.display = 'none';
+        bookingSuccess.classList.add('active');
+        
+        document.getElementById('success-code').textContent = code;
+        
+        const [y, m, d] = selectedDateString.split('-');
+        document.getElementById('success-datetime').textContent = `${d}/${m}/${y} a las ${time} hs`;
+        
+      } catch (err) {
+        console.error("Error inesperado de conexión:", err);
+        alert("Ocurrió un error al intentar conectar con la base de datos de Supabase.");
+        
+        if (submitBtnText) submitBtnText.textContent = originalText;
+        submitBtn.disabled = false;
+      }
     });
     
     const resetBookingBtn = document.getElementById('js-reset-booking-btn');
